@@ -1,99 +1,173 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-    
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Horizontal Demo - Sliding Tabs - jQuery Plugin</title>
-    
-    <!-- CSS -->                
-    <style type="text/css">
-		html { overflow:auto; }
-		body { font:12px/18px verdana, sans-serif; background-color:#f5f5f5; margin:20px; }
-		body h1 { font-size:18px; margin:0 0 20px; }
-		h2 {border-bottom: 1px solid #D4D4D4;margin: 0 0 10px 0;font-size: 16px;}
-		h3 {margin: 0 0 5px 0;font-size: 14px;}
-		ul.chat{margin:0;padding:0;}
-		ul.last{border:0;}
-		ul.chat li{list-style:none;border-bottom: 1px dotted #d4d4d4;line-height: 15px;padding: 5px;}
-		span.date{font-size: 12px;display:inline-block;padding-right: 10px;}
-		span.nickname{font-size: 11px;font-weight: bold;padding-right: 5px;display:inline-block;}
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>jQuery niceDate</title>
+		<!-- CSS -->
+		<style type="text/css">
+			html {
+				overflow: auto;
+			}
+			body {
+				font: 12px /18px verdana, sans-serif;
+				background-color: #f5f5f5;
+				margin: 20px;
+			}
+			body h1 {
+				font-size: 18px;
+				margin: 0 0 20px;
+			}
+			h2 {
+				border-bottom: 1px solid #D4D4D4;
+				margin: 0 0 10px 0;
+				font-size: 16px;
+			}
+			h3 {
+				margin: 0 0 5px 0;
+				font-size: 14px;
+			}
+			ul.chat {
+				margin: 0;
+				padding: 0;
+			}
+			ul.last {
+				border: 0;
+			}
+			ul.chat li {
+				list-style: none;
+				border-bottom: 1px dotted #d4d4d4;
+				line-height: 15px;
+				padding: 5px;
+			}
+			span.date {
+				font-size: 12px;
+				display: inline-block;
+				padding: 5px 10px;
+				background-color: #d4d4d4;
+			}
+			span.nickname {
+				font-size: 11px;
+				font-weight: bold;
+				padding-right: 10px;
+				display: inline-block;
+			}
 
-	</style>
-    <link rel="stylesheet" type="text/css" href="css/slidingtabs-horizontal.css" />   
-	<link rel="stylesheet" type="text/css" href="css/fluid_grid.css" />  
-    
-    <!-- JavaScript -->
-    <script type="text/javascript" src="http://www.google.com/jsapi"></script><script type="text/javascript">google.load("jquery", "1.6.4");</script>
-	<script type="text/javascript" src="jquery.niceDate.js"></script>
-    <script type="text/javascript">  
-  	$(document).ready(function() {
-  		$('.date').niceDate();
-  	});		
-    </script>
-    
-</head>
-<body>	                
-        
-    <h1>jQuery niceDate</h1>                     
-            
-    <div id="st_horizontal" class="st_horizontal">                                                
-       
-        <div class="st_view_container">                    
-            
-            <div class="st_view">                 
-                        
-                <div id="st_content_1" class="st_tab_view st_first_tab_view">
-                    <div class="container_16">
-					
-						
-						<h2 class="grid_16">Last Comments</h2>
-						
-						<div class="grid_4">
-							<h3>Task 1234</h3>
-							<ul class="chat">
-								<li class="niceDate"><span class="nickname">Me</span><span class="date">11.10.2011 13:30</span><br />Everything is kull, what are talking about.</li>
-								<li><span class="nickname">Jure</span><span class="date">12.10.2011 13:00</span><br />not good</li>
-								<li><span class="nickname">Alenka</span><span class="date">13.10.2011 12:10</span><br />see ya later</li>
-							</ul>
+		</style>
+		<link rel="stylesheet" type="text/css" href="css/fluid_grid.css" />
+		<!-- JavaScript -->
+		<script type="text/javascript" src="http://www.google.com/jsapi"></script>
+		<script type="text/javascript">google.load("jquery", "1.6.4");</script>
+		<script type="text/javascript" src="date.format.js"></script>
+		<script type="text/javascript" src="jquery.niceDate.js"></script>
+		<script type="text/javascript" src="i18n/sl.js"></script>
+		<script type="text/javascript">
+			$(document).ready(function() {
+				$('.date').each(function(){
+					var date = new Date(2011, 9, 13, Math.floor(Math.random() * 60), Math.floor(Math.random() * 60));
+					$(this).html(date.format('dd.mm.yyyy HH:MM'));
+				});
+				$('.date').niceDate();
+			});
+		</script>
+	</head>
+	<body>
+		<h1>jQuery niceDate</h1>
+		<div id="st_horizontal" class="st_horizontal">
+			<div class="st_view_container">
+				<div class="st_view">
+					<div id="st_content_1" class="st_tab_view st_first_tab_view">
+						<div class="container_16">
+							<h2 class="grid_16">Last Comments</h2>
+							<div class="grid_4">
+								<h3>Task 1234</h3>
+								<ul class="chat">
+									<li class="niceDate">
+										<span class="nickname">Me</span><span class="date">11.10.2011 13:30</span>
+										<br />
+										Everything is kull, what are talking about.
+									</li>
+									<li>
+										<span class="nickname">Jure</span><span class="date">12.10.2011 13:00</span>
+										<br />
+										not good
+									</li>
+									<li>
+										<span class="nickname">Alenka</span><span class="date">13.10.2011 12:10</span>
+										<br />
+										see ya later
+									</li>
+								</ul>
+							</div>
+							<div class="grid_4">
+								<h3>Task 1234</h3>
+								<ul class="chat">
+									<li>
+										<span class="nickname">Me</span><span class="date">07.10.2011 23:50</span>
+										<br />
+										Everything is kull, what are talking about.
+									</li>
+									<li>
+										<span class="nickname">Jure</span><span class="date">08.10.2011 06:00</span>
+										<br />
+										not good
+									</li>
+									<li>
+										<span class="nickname">Alenka</span><span class="date">12.10.2011 12:10</span>
+										<br />
+										see ya later
+									</li>
+								</ul>
+							</div>
+							<div class="grid_4">
+								<h3>Task 1234</h3>
+								<ul class="chat">
+									<li>
+										<span class="nickname">Me</span><span class="date">12.10.2011 17:45</span>
+										<br />
+										Everything is kull, what are talking about.
+									</li>
+									<li>
+										<span class="nickname">Jure</span><span class="date">12.10.2011 17:46</span>
+										<br />
+										not good
+									</li>
+									<li>
+										<span class="nickname">Alenka</span><span class="date">12.10.2011 17:47</span>
+										<br />
+										see ya later
+									</li>
+								</ul>
+							</div>
+							<div class="grid_4">
+								<h3>Task 1234</h3>
+								<ul class="chat">
+									<li>
+										<span class="nickname">Me</span><span class="date">12.10.2011 17:30</span>
+										<br />
+										Everything is kull, what are talking about.
+									</li>
+									<li>
+										<span class="nickname">Jure</span><span class="date">13.10.2011 18:00</span>
+										<br />
+										not good
+									</li>
+									<li>
+										<span class="nickname">Alenka</span><span class="date">12.10.2011 18:10</span>
+										<br />
+										see ya later
+									</li>
+								</ul>
+							</div>
+							<div class="clear"></div>
+							<br />
 						</div>
-						<div class="grid_4">
-							<h3>Task 1234</h3>
-							<ul class="chat">
-								<li><span class="nickname">Me</span><span class="date">07.10.2011 23:50</span><br />Everything is kull, what are talking about.</li>
-								<li><span class="nickname">Jure</span><span class="date">08.10.2011 06:00</span><br />not good</li>
-								<li><span class="nickname">Alenka</span><span class="date">12.10.2011 12:10</span><br />see ya later</li>
-							</ul>
-						</div>
-						<div class="grid_4">
-							<h3>Task 1234</h3>
-							<ul class="chat">
-								<li><span class="nickname">Me</span><span class="date">12.10.2011 17:45</span><br />Everything is kull, what are talking about.</li>
-								<li><span class="nickname">Jure</span><span class="date">12.10.2011 17:46</span><br />not good</li>
-								<li><span class="nickname">Alenka</span><span class="date">12.10.2011 17:47</span><br />see ya later</li>
-							</ul>
-						</div>
-						<div class="grid_4">
-							<h3>Task 1234</h3>
-							<ul class="chat">
-								<li><span class="nickname">Me</span><span class="date">12.10.2011 17:30</span><br />Everything is kull, what are talking about.</li>
-								<li><span class="nickname">Jure</span><span class="date">13.10.2011 18:00</span><br />not good</li>
-								<li><span class="nickname">Alenka</span><span class="date">12.10.2011 18:10</span><br />see ya later</li>
-							</ul>
-						</div>
-
-						<div class="clear"></div><br />
-					
-                        </div>         
-                </div>
-                
-              	
-                
-            </div> <!-- /.st_view -->
-         
-        </div> <!-- /.st_view_container -->                                          
-    
-    </div> <!-- /#st_horizontal -->        
-    <!-- End HTML - Horizontal tabs -->                                                                                                        
-   
-</body>
+					</div>
+				</div>
+				<!-- /.st_view -->
+			</div>
+			<!-- /.st_view_container -->
+		</div>
+		<!-- /#st_horizontal -->
+		<!-- End HTML - Horizontal tabs -->
+	</body>
 </html>
