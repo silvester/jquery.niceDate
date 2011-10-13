@@ -15,58 +15,28 @@
 		ul.chat{margin:0;padding:0;}
 		ul.last{border:0;}
 		ul.chat li{list-style:none;border-bottom: 1px dotted #d4d4d4;line-height: 15px;padding: 5px;}
-		span.date{font-size: 10px;display:inline-block;padding-right: 10px;color:#D4D4D4;}
-		span.nickname{font-size: 11px;font-weight: bold;padding-right: 5px;display:inline-block;color:#D4D4D4;}
+		span.date{font-size: 12px;display:inline-block;padding-right: 10px;}
+		span.nickname{font-size: 11px;font-weight: bold;padding-right: 5px;display:inline-block;}
 
-		ul.chat li:hover > span{color:black;}
 	</style>
     <link rel="stylesheet" type="text/css" href="css/slidingtabs-horizontal.css" />   
 	<link rel="stylesheet" type="text/css" href="css/fluid_grid.css" />  
     
     <!-- JavaScript -->
-    <script type="text/javascript" src="http://www.google.com/jsapi"></script><script type="text/javascript">google.load("jquery", "1.6.4");</script>    
-	<script type="text/javascript" src="js/plugins/jquery.mousewheel.min.js"></script>
-	<script type="text/javascript" src="js/plugins/jquery.easing.1.3.js"></script>
-	<script type="text/javascript" src="js/jquery.slidingtabs.pack.js"></script>
-	<script type="text/javascript" src="js/jquery.niceDate.js"></script>
+    <script type="text/javascript" src="http://www.google.com/jsapi"></script><script type="text/javascript">google.load("jquery", "1.6.4");</script>
+	<script type="text/javascript" src="jquery.niceDate.js"></script>
     <script type="text/javascript">  
   	$(document).ready(function() {
- 
-  		$('div#st_horizontal').slideTabs();
-  		
-  		$('.date').niceDate();  		  		
-  	
+  		$('.date').niceDate();
   	});		
     </script>
     
 </head>
 <body>	                
         
-    <h1>Horizontal demo</h1>                     
+    <h1>jQuery niceDate</h1>                     
             
-    <!-- Start HTML - Horizontal tabs -->
     <div id="st_horizontal" class="st_horizontal">                                                
-        
-        <div class="st_tabs_container">                                                                                                                                          
-            
-            <a href="#prev" class="st_prev"></a>
-            
-            <div class="st_slide_container">
-            
-                <ul class="st_tabs">
-                    <li><a href="#st_content_1" rel="tab_1" class="st_tab st_first_tab st_tab_active">Dashboard</a></li>
-                    <li><a href="#st_content_2" rel="tab_2" class="st_tab">Open tasks</a></li>                                     
-                    <li><a href="#st_content_3" rel="tab_3" class="st_tab">Closed task</a></li>
-                    <li><a href="#st_content_4" rel="tab_4" class="st_tab">My tasks</a></li>
-                    <li><a href="#st_content_5" rel="tab_5" class="st_tab">Settings</a></li>    
-					<li><a href="http://www.google.com" rel="tab_6" class="st_tab">Google</a></li>    					
-                </ul>
-            
-            </div> <!-- /.st_slide_container -->
-            
-            <a href="#next" class="st_next"></a>                                                                                                
-        
-        </div> <!-- /.st_tabs_container -->
        
         <div class="st_view_container">                    
             
@@ -111,84 +81,12 @@
 							</ul>
 						</div>
 
-						
-						<div class="clear"></div><br /><br />
-						
-						<div class="grid_8">
-							<h2>Open tasks</h2>
-							<ul class="tasks">
-								<li></li>
-							</ul>
-						</div>
-						<div class="grid_8"><h2>Closed tasks</h2></div>
-						
-						<div class="clear"></div><br />
-						
-						<div class="grid_4"><h2>New task</h2></div>
-						<div class="grid_4"><h2>Settings</h2></div>
-						<div class="grid_4"><h2>People in project</h2></div>
-						<div class="grid_4"><h2>Closed tasks</h2></div>
-					
 						<div class="clear"></div><br />
 					
                         </div>         
                 </div>
                 
-                <div id="st_content_2" class="st_tab_view">
-                    <h2>Horizontal Tab #2</h2>
-                    
-                    <div class="text">
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris a tellus nec tellus volutpat interdum vel vel nisi. Vestibulum vestibulum porta ultrices. Suspendisse pharetra nisi eu orci sollicitudin nec suscipit tellus lacinia. Cras porta metus sit amet dolor imperdiet at mollis est malesuada. Nulla ligula dolor, porta vel odio. Sed sodales nulla blandit mauris commodo eu varius purus rhoncus. Nam imperdiet elementum egestas. Proin sapien metus, viverra quis tristique a, malesuada a nibh.</p>                                                                
-                        
-                        <blockquote>Nam et iaculis est. Phasellus nec tempor arcu. Praesent risus vitae eget facilisis tempus fermentum eget mauris semper.</blockquote>                                                                        
-                        
-                        <p>Nam et iaculis est. Phasellus nec tempor arcu. Praesent at risus vitae lacus facilisis tempus et sed tortor. Duis cursus sapien eget neque laoreet quis fermentum mauris semper. Nulla a diam quis tellus lobortis congue ut vitae massa, sed a ante eros.</p>
-                        
-                        <p>Donec lacinia aliquet porttitor. Pellentesque vel sem et dui sagittis aliquet. Ut et est eget augue tristique pharetra sit amet quis orci. Quisque elit sem, feugiat a auctor ac, congue vitae massa. Nulla convallis tortor eget ligula elementum in fringilla augue elementum. Ut bibendum accumsan nibh non fringilla. Fusce nec elementum enim. Duis condimentum cursus massa, elit bibendum turpis auctor elementum. Quisque ante felis, tincidunt vel iaculis non, volutpat non neque.</p>
-                    </div>
-                </div>
-                
-                <div id="st_content_3" class="st_tab_view">
-                    <h2>Horizontal Tab #3</h2>
-                    
-                    <div class="text">
-                        <p>Lorem ipsum dolor sit amet, duis netus ut posuere feugiat arcu, purus wisi quis fringilla at, nunc ut eget elit duis erat praesent, ut fermentum lacus turpis cras. Justo gravida erat quam mauris purus, aliquam quisque, eget nisl. Pellentesque nibh duis odio morbi quam, scelerisque convallis aenean quam tincidunt ornare nam nec feugiat sodales tristique.</p>
-                        
-                        <blockquote><p>Aliquam commodo ullamcorper aenean erat. Nullam vel justo in neque porttitor eget laoreet. Aenean lacus adipiscing.</p></blockquote>
-                                
-                        <p>Aliquam commodo ullamcorper erat. Nullam vel justo cras porttitor laoreet. Aenean lacus dui, consequat eu, adipiscing nonummy, eget non, nisi. Morbi nunc est, dignissim non, ornare sed, luctus eu, massa. Vivamus tincidunt diam nec eget urna.</p>
-                        
-                        <p>Curabitur velit. Veniam donec orci viverra, lorem convallis in libero quisque, purus erat dolor curabitur, justo arcu nisl, natoque velit euismod dapibus nulla semper. Suspendisse odio tempor. Id ornare nam nec feugiat, ac consectetuer magna, dolor enim vel in, pulvinar bibendum ante ac, dui nibh dui est neque lacinia et. Duis netus ut posuere feugiat arcu, purus wisi quis fringilla at, nunc ut eget elit duis erat, eu praesent, ut fermentum lacus turpis cras. Justo gravida erat quam mauris purus, aliquam quisque, eget nisl. Pellentesque nibh ut odio morbi quam, scelerisque convallis tincidunt tristique.</p>
-                    </div>
-                </div>
-                
-                <div id="st_content_4" class="st_tab_view">
-                    <h2>Horizontal Tab #4</h2>
-                    
-                    <div class="text">
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris a tellus nec tellus volutpat interdum vel vel nisi. Vestibulum vestibulum porta ultrices. Suspendisse pharetra nisi eu orci sollicitudin nec suscipit tellus lacinia. Cras porta metus sit amet dolor imperdiet at mollis est malesuada. Nulla ligula dolor, porta vel odio. Sed sodales nulla blandit mauris commodo eu varius purus rhoncus. Nam imperdiet elementum egestas. Proin sapien metus, viverra quis tristique a, malesuada a nibh.</p>                                                                
-                        
-                        <blockquote>Nam et iaculis est. Phasellus nec tempor arcu. Praesent risus vitae eget facilisis tempus fermentum eget mauris semper.</blockquote>                                                                        
-                        
-                        <p>Nam et iaculis est. Phasellus nec tempor arcu. Praesent at risus vitae lacus facilisis tempus et sed tortor. Duis cursus sapien eget neque laoreet quis fermentum mauris semper. Nulla a diam quis tellus lobortis congue ut vitae massa, sed a ante eros.</p>
-                        
-                        <p>Donec lacinia aliquet porttitor. Pellentesque vel sem et dui sagittis aliquet. Ut et est eget augue tristique pharetra sit amet quis orci. Quisque elit sem, feugiat a auctor ac, congue vitae massa. Nulla convallis tortor eget ligula elementum in fringilla augue elementum. Ut bibendum accumsan nibh non fringilla. Fusce nec elementum enim. Duis condimentum cursus massa, elit bibendum turpis auctor elementum. Quisque ante felis, tincidunt vel iaculis non, volutpat non neque.</p>
-                    </div>
-                </div>
-                
-                <div id="st_content_5" class="st_tab_view">
-                    <h2>Horizontal Tab #5</h2>
-                    
-                    <div class="text">
-                        <p>Lorem ipsum dolor sit amet, duis netus ut posuere feugiat arcu, purus wisi quis fringilla at, nunc ut eget elit duis erat praesent, ut fermentum lacus turpis cras. Justo gravida erat quam mauris purus, aliquam quisque, eget nisl. Pellentesque nibh duis odio morbi quam, scelerisque convallis aenean quam tincidunt ornare nam nec feugiat sodales tristique.</p>
-                        
-                        <blockquote><p>Aliquam commodo ullamcorper aenean erat. Nullam vel justo in neque porttitor eget laoreet. Aenean lacus adipiscing.</p></blockquote>
-                                
-                        <p>Aliquam commodo ullamcorper erat. Nullam vel justo cras porttitor laoreet. Aenean lacus dui, consequat eu, adipiscing nonummy, eget non, nisi. Morbi nunc est, dignissim non, ornare sed, luctus eu, massa. Vivamus tincidunt diam nec eget urna.</p>
-                        
-                        <p>Curabitur velit. Veniam donec orci viverra, lorem convallis in libero quisque, purus erat dolor curabitur, justo arcu nisl, natoque velit euismod dapibus nulla semper. Suspendisse odio tempor. Id ornare nam nec feugiat, ac consectetuer magna, dolor enim vel in, pulvinar bibendum ante ac, dui nibh dui est neque lacinia et. Duis netus ut posuere feugiat arcu, purus wisi quis fringilla at, nunc ut eget elit duis erat, eu praesent, ut fermentum lacus turpis cras. Justo gravida erat quam mauris purus, aliquam quisque, eget nisl. Pellentesque nibh ut odio morbi quam, scelerisque convallis tincidunt tristique.</p>
-                    </div>
-                </div>                                         	
+              	
                 
             </div> <!-- /.st_view -->
          
