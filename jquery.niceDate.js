@@ -10,14 +10,12 @@
 
 			var obj = $(this);
 
-			var matches = obj.html().match(o.pattern);
+			var objTs = $.fn.niceDate.defaults.makeTimestamp(obj.html());
 
 			var objHtml = obj.html();
 
-			if(matches) {
-
-				var objTs = new Date(matches[o.objTs[0]], matches[o.objTs[1]] - 1, matches[o.objTs[2]], matches[o.objTs[3]], matches[o.objTs[4]]);
-				
+			if(objTs) {
+			
 				objTs = objTs.getTime() / 1000;
 
 				var diff = objTs - o.nowTs;
@@ -89,59 +87,19 @@
 	};
 
 	$.fn.niceDate.defaults = {
-		nowTs : Math.round(new Date().getTime() / 1000)
+		nowTs:	 		Math.round(new Date().getTime() / 1000),
+		pattern: 		/([0-3][0-9]).([0|1][0-9]).(\d{4})\s(\d{2}):(\d{2})$/, // 15.08.2011 15:30
+		patternOrder: 	[3, 2, 1, 4, 5], // year, month, day, hour, minute
 	};
-
-})(jQuery);
-
-/*Slovenian date time formats*/
-jQuery.extend(jQuery.fn.niceDate.defaults, {
-
-	pattern : /([0-3][0-9]).([0|1][0-9]).(\d{4})\s(\d{2}):(\d{2})$/, // 15.08.2011 15:30
-
-	objTs : [3, 2, 1, 4, 5], // year, month, day, hour, minute
-
-	dayMessages : {
-		n : {
-			0 : 'Danes',
-			1 : 'Včeraj',
-			2 : 'Pred 2 dnevoma',
-			many : 'Pred %s dnevi'
-		},
-		p : {
-			1 : 'Jutri',
-			many : 'Čez %s dni'
-		}
-	},
-
-	hourMessages : {
-		n : {
-			1 : 'Pred 1 uro',
-			2 : 'Pred 2 urama',
-			many : 'Pred %s urami'
-		},
-		p : {
-			1 : 'Čez 1 uro',
-			2 : 'Čez 2 uri',
-			3 : 'Čez 3 ure',
-			4 : 'Čez 4 ure',
-			many : 'Čez %s ur'
-		}
-	},
-
-	minMessages : {
-		n : {
-			1 : 'Pred 1 minuto',
-			2 : 'Pred 2 minutoma',
-			many : 'Pred %s minutami'
-		},
-		p : {
-			1 : 'Čez 1 minuto',
-			2 : 'Čez 2 minuti',
-			3 : 'Čez 3 minute',
-			4 : 'Čez 4 minute',
-			many : 'Čez %s minut'
+	
+	$.fn.niceDate.defaults.makeTimestamp = function(text)
+	{
+		var matches = text.match(o.pattern);
+		if(matches) {
+			return new Date(matches[o.patternOrder[0]], matches[o.patternOrder[1]] - 1, matches[o.patternOrder[2]], matches[o.patternOrder[3]], matches[o.patternOrder[4]]);
+		} else {
+			return;
 		}
 	}
 
-});
+})(jQuery);
