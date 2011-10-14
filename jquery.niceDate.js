@@ -25,8 +25,9 @@
 				var minDiff = diff / 60;
 
 				if(dayDiff >= 1 || dayDiff <= -1) {
-
+					
 					var objStr = $.fn.niceDate.formatDay(dayDiff);
+					console.log(dayDiff + ' date ' + objHtml + ' str ' + objStr);
 
 				} else if(hourDiff >= 1 || hourDiff <= -1) {
 
@@ -51,10 +52,10 @@
 	};
 
 	$.fn.niceDate.formatDay = function(d) {
-
+		
 		var sign = (d >= 0) ? 'p' : 'n';
 		
-		d = Math.round(Math.abs(d));
+		d = Math.floor(Math.abs(d));
 
 		var str = ($.fn.niceDate.defaults.dayMessages[sign][d]) ? $.fn.niceDate.defaults.dayMessages[sign][d] : $.fn.niceDate.defaults.dayMessages[sign]['many'];
 
@@ -87,6 +88,7 @@
 	};
 
 	$.fn.niceDate.defaults = {
+		
 		nowTs:	 		Math.round(new Date().getTime() / 1000),
 		pattern: 		/([0-3][0-9]).([0|1][0-9]).(\d{4})\s(\d{2}):(\d{2})$/, // 15.08.2011 15:30
 		patternOrder: 	[3, 2, 1, 4, 5], // year, month, day, hour, minute
@@ -102,6 +104,7 @@
 			n : {1 : '% minute before', many : '%s minutes before'},
 			p : {1 : 'After %s minute',	many : 'After %s minutes'}
 		}
+		
 	};
 	
 	$.fn.niceDate.defaults.makeTimestamp = function(text)
