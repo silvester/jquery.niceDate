@@ -3,6 +3,7 @@
 	$.fn.niceDate = function(options) {
 
 		var options = $.extend({}, $.fn.niceDate.defaults, options);
+		var nowTs = options.nowDate.getTime() / 1000;
 
 		return this.each(function() {
 
@@ -10,15 +11,15 @@
 
 			var obj = $(this);
 
-			var objTs = $.fn.niceDate.defaults.makeTimestamp(obj.html());
+			var objDate = $.fn.niceDate.defaults.makeTimestamp(obj.html());
 
 			var objHtml = obj.html();
 
-			if(objTs) {
+			if(objDate) {
 			
-				objTs = objTs.getTime() / 1000;
+				objTs = objDate.getTime() / 1000;
 
-				var diff = objTs - o.nowTs;
+				var diff = objTs - nowTs;
 
 				var dayDiff = diff / 86400;
 				var hourDiff = diff / 3600;
@@ -26,7 +27,8 @@
 
 				if(dayDiff >= 1 || dayDiff <= -1) {
 					
-					var objStr = $.fn.niceDate.formatDay(dayDiff);
+					var objStr = $.fn.niceDate.formatDay(dayDiff, objDate);
+					
 					console.log(dayDiff + ' date ' + objHtml + ' str ' + objStr);
 
 				} else if(hourDiff >= 1 || hourDiff <= -1) {
@@ -51,13 +53,25 @@
 		});
 	};
 
-	$.fn.niceDate.formatDay = function(d) {
+	$.fn.niceDate.formatDay = function(d, objTime) {
 		
 		var sign = (d >= 0) ? 'p' : 'n';
+		var o = $.fn.niceDate.defaults;
+		var addition = 0;
 		
-		d = Math.floor(Math.abs(d));
+		if(sign == 'p'){
+			var mins = ((d % 1) * 1440) + o.nowDate.getMinutes() + (o.nowDate.getHours() * 60);
+			if(mins >= 1440){ addition = 1; }	
+		} else {
+			var mins = (o.nowDate.getMinutes() + (o.nowDate.getHours() * 60)) + ((d % 1) * 1440);
+			if(mins < 0){ addition = 1; }
+		}
+		
+		d = Math.floor(Math.abs(d)) + addition;
+		
+		console.log('a: ' + addition + ' m: ' + mins + ' d: ' + d + ' sign:' + sign);
 
-		var str = ($.fn.niceDate.defaults.dayMessages[sign][d]) ? $.fn.niceDate.defaults.dayMessages[sign][d] : $.fn.niceDate.defaults.dayMessages[sign]['many'];
+		var str = (o.dayMessages[sign][d]) ? o.dayMessages[sign][d] : o.dayMessages[sign]['many'];
 
 		return str.replace('%s', d);
 
@@ -89,7 +103,7 @@
 
 	$.fn.niceDate.defaults = {
 		
-		nowTs:	 		Math.round(new Date().getTime() / 1000),
+		nowDate:	 	new Date(),
 		pattern: 		/([0-3][0-9]).([0|1][0-9]).(\d{4})\s(\d{2}):(\d{2})$/, // 15.08.2011 15:30
 		patternOrder: 	[3, 2, 1, 4, 5], // year, month, day, hour, minute
 		dayMessages : {
