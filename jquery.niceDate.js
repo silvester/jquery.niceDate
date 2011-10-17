@@ -11,7 +11,7 @@
 
 			var obj = $(this);
 
-			var objDate = $.fn.niceDate.defaults.makeTimestamp(obj.html());
+			var objDate = o.makeTimestamp(obj.html());
 
 			var objHtml = obj.html();
 
@@ -25,7 +25,7 @@
 				var hourDiff = diff / 3600;
 				var minDiff = diff / 60;
 
-				if(dayDiff >= 1 || dayDiff <= -1) {
+				if((dayDiff >= 1 || dayDiff <= -1) || o.dayOnly) {
 					
 					var objStr = $.fn.niceDate.formatDay(dayDiff, objDate);
 					
@@ -106,6 +106,7 @@
 		nowDate:	 	new Date(),
 		pattern: 		/([0-3][0-9]).([0|1][0-9]).(\d{4})\s(\d{2}):(\d{2})$/, // 15.08.2011 15:30
 		patternOrder: 	[3, 2, 1, 4, 5], // year, month, day, hour, minute
+		dayOnly:		true,
 		dayMessages : {
 			n : {0 : 'Today', 1 : 'Yesterday', many : '%s days before'},
 			p : {0 : 'Today', 1 : 'Tomorrow', many : '%s days after'}
