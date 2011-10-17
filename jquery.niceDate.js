@@ -1,3 +1,9 @@
+/*!
+* jQuery niceDate plugin v0.1
+* Author: Silvester Maraž
+* Url: http://maraz.org/2011/10/jquery-nicedate/
+* Licensed under the MIT license
+*/
 ;(function($) {
 
 	$.fn.niceDate = function(options) {
