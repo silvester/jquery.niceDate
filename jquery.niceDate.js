@@ -3,6 +3,7 @@
 	$.fn.niceDate = function(options) {
 
 		var options = $.extend({}, $.fn.niceDate.defaults, options);
+		
 		var nowTs = options.nowDate.getTime() / 1000;
 
 		return this.each(function() {

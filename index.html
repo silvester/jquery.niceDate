@@ -57,15 +57,10 @@
 		<!-- JavaScript -->
 		<script type="text/javascript" src="http://www.google.com/jsapi"></script>
 		<script type="text/javascript">google.load("jquery", "1.6.4");</script>
-		<script type="text/javascript" src="date.format.js"></script>
 		<script type="text/javascript" src="jquery.niceDate.js"></script>
 		<script type="text/javascript" src="i18n/sl.js"></script>
 		<script type="text/javascript">
 			$(document).ready(function() {
-				$('.date').each(function(){
-					var date = new Date(2011, 9, 14, Math.floor(Math.random() * 60), Math.floor(Math.random() * 60));
-					$(this).html(date.format('dd.mm.yyyy HH:MM'));
-				});
 				$('.date').niceDate();
 			});
 		</script>
