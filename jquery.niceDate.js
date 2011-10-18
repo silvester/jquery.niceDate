@@ -35,8 +35,6 @@
 				if((dayDiff >= 1 || dayDiff <= -1) || o.dayOnly) {
 					
 					var objStr = $.fn.niceDate.formatDay(dayDiff, objDate);
-					
-					console.log(dayDiff + ' date ' + objHtml + ' str ' + objStr);
 
 				} else if(hourDiff >= 1 || hourDiff <= -1) {
 
@@ -71,7 +69,7 @@
 		
 		if(sign == 'p'){
 			var mins = ((d % 1) * 1440) + o.nowDate.getMinutes() + (o.nowDate.getHours() * 60);
-			if(mins >= 1440){ addition = 1; }	
+			if(mins > 1440){ addition = 1; }	
 		} else {
 			var mins = (o.nowDate.getMinutes() + (o.nowDate.getHours() * 60)) + ((d % 1) * 1440);
 			if(mins < 0){ addition = 1; }
@@ -79,7 +77,7 @@
 		
 		d = Math.floor(Math.abs(d)) + addition;
 		
-		console.log('a: ' + addition + ' m: ' + mins + ' d: ' + d + ' sign:' + sign);
+		//console.log('a: ' + addition + ' m: ' + mins + ' d: ' + d + ' sign:' + sign);
 
 		var str = (o.dayMessages[sign][d]) ? o.dayMessages[sign][d] : o.dayMessages[sign]['many'];
 
