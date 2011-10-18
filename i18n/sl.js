@@ -41,11 +41,13 @@ $.extend($.fn.niceDate.defaults, {
 
 	minMessages : {
 		n : {
+			0 : 'Glih',
 			1 : 'Pred 1 minuto',
 			2 : 'Pred 2 minutoma',
 			many : 'Pred %s minutami'
 		},
 		p : {
+			0 : 'Glih',
 			1 : 'Čez 1 minuto',
 			2 : 'Čez 2 minuti',
 			3 : 'Čez 3 minute',
