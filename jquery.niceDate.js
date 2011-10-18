@@ -119,15 +119,15 @@
 		dayOnly:		true, // will show only days, no minutes or hours
 		hoverShow:		true, // will show original date on mouse over
 		dayMessages : {
-			n : {0 : 'Today', 1 : 'Yesterday', many : '%s days before'},
-			p : {0 : 'Today', 1 : 'Tomorrow', many : '%s days after'}
+			n : {0 : 'Today', 1 : 'Yesterday', many : '%s days ago'},
+			p : {0 : 'Today', 1 : 'Tomorrow', many : '%s days ago'}
 		},
 		hourMessages : {
-			n : {1 : '%s hour before', many : '%s hours before'},
+			n : {1 : '%s hour ago', many : '%s hours ago'},
 			p : {1 : 'After %s hour', many : 'After %s hours'}
 		},
 		minMessages : {
-			n : {1 : '% minute before', many : '%s minutes before'},
+			n : {1 : '% minute ago', many : '%s minutes ago'},
 			p : {1 : 'After %s minute',	many : 'After %s minutes'}
 		}
 		
