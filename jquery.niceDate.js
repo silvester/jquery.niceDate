@@ -120,15 +120,15 @@
 		hoverShow:		true, // will show original date on mouse over
 		dayMessages : {
 			n : {0 : 'Today', 1 : 'Yesterday', many : '%s days ago'},
-			p : {0 : 'Today', 1 : 'Tomorrow', many : '%s days ago'}
+			p : {0 : 'Today', 1 : 'Tomorrow', many : '%s days later'}
 		},
 		hourMessages : {
 			n : {1 : '%s hour ago', many : '%s hours ago'},
-			p : {1 : 'After %s hour', many : 'After %s hours'}
+			p : {1 : 'After %s hour', many : '%s hours later'}
 		},
 		minMessages : {
 			n : {1 : '% minute ago', many : '%s minutes ago'},
-			p : {1 : 'After %s minute',	many : 'After %s minutes'}
+			p : {1 : 'After %s minute',	many : '%s minutes later'}
 		}
 		
 	};
