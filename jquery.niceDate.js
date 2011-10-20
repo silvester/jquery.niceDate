@@ -1,15 +1,15 @@
 /*!
-* jQuery niceDate plugin v0.1
-* Author: Silvester Maraž
-* Url: http://maraz.org/2011/10/jquery-nicedate/
-* Licensed under the MIT license
-*/
+ * jQuery niceDate plugin v0.1
+ * Author: Silvester Maraž
+ * Url: http://maraz.org/2011/10/jquery-nicedate/
+ * Licensed under the MIT license
+ */
 ;(function($) {
 
 	$.fn.niceDate = function(options) {
 
 		var options = $.extend({}, $.fn.niceDate.defaults, options);
-		
+
 		var nowTs = options.nowDate.getTime() / 1000;
 
 		return this.each(function() {
@@ -23,7 +23,6 @@
 			var objHtml = obj.html();
 
 			if(objDate) {
-			
 				objTs = objDate.getTime() / 1000;
 
 				var diff = objTs - nowTs;
@@ -32,9 +31,13 @@
 				var hourDiff = diff / 3600;
 				var minDiff = diff / 60;
 
-				if((dayDiff >= 1 || dayDiff <= -1) || o.dayOnly) {
-					
-					var objStr = $.fn.niceDate.formatDay(dayDiff, objDate);
+				if(dayDiff >= 30 || dayDiff <= -30) {
+
+					var objStr = $.fn.niceDate.formatMonth(objDate);
+
+				} else if((dayDiff >= 1 || dayDiff <= -1) || o.dayOnly) {
+
+					var objStr = $.fn.niceDate.formatDay(dayDiff);
 
 				} else if(hourDiff >= 1 || hourDiff <= -1) {
 
@@ -43,41 +46,48 @@
 				} else {
 
 					var objStr = $.fn.niceDate.formatMinut(minDiff);
-					
+
 				}
 
 				obj.html(objStr);
-				
-				if(o.hoverShow) { 
-					obj.hover(function() { 
+
+				if(o.hoverShow) {
+					obj.hover(function() {
 						$(this).html(objHtml)
 					}, function() {
 						$(this).html(objStr)
 					});
 				}
-				
+
 			}
 
 		});
 	};
 
-	$.fn.niceDate.formatDay = function(d, objTime) {
-		
+	$.fn.niceDate.formatMonth = function(objTime) {
+
+		return objTime.getDate() + '. ' + $.fn.niceDate.defaults.monthMessages[objTime.getMonth()] + ' ' + objTime.getFullYear();
+
+	};
+
+	$.fn.niceDate.formatDay = function(d) {
+
 		var sign = (d >= 0) ? 'p' : 'n';
 		var o = $.fn.niceDate.defaults;
 		var addition = 0;
-		
-		if(sign == 'p'){
+
+		if(sign == 'p') {
 			var mins = ((d % 1) * 1440) + o.nowDate.getMinutes() + (o.nowDate.getHours() * 60);
-			if(mins > 1440){ addition = 1; }	
+			if(mins > 1440) {
+				addition = 1;
+			}
 		} else {
 			var mins = (o.nowDate.getMinutes() + (o.nowDate.getHours() * 60)) + ((d % 1) * 1440);
-			if(mins < 0){ addition = 1; }
+			if(mins < 0) {
+				addition = 1;
+			}
 		}
-		
 		d = Math.floor(Math.abs(d)) + addition;
-		
-		//console.log('a: ' + addition + ' m: ' + mins + ' d: ' + d + ' sign:' + sign);
 
 		var str = (o.dayMessages[sign][d]) ? o.dayMessages[sign][d] : o.dayMessages[sign]['many'];
 
@@ -88,7 +98,6 @@
 	$.fn.niceDate.formatHour = function(d) {
 
 		var sign = (d >= 0) ? 'p' : 'n';
-		
 		d = Math.round(Math.abs(d));
 
 		var str = ($.fn.niceDate.defaults.hourMessages[sign][d]) ? $.fn.niceDate.defaults.hourMessages[sign][d] : $.fn.niceDate.defaults.hourMessages[sign]['many'];
@@ -100,7 +109,6 @@
 	$.fn.niceDate.formatMinut = function(d) {
 
 		var sign = (d >= 0) ? 'p' : 'n';
-		
 		d = Math.round(Math.abs(d));
 
 		var str = ($.fn.niceDate.defaults.minMessages[sign][d]) ? $.fn.niceDate.defaults.minMessages[sign][d] : $.fn.niceDate.defaults.minMessages[sign]['many'];
@@ -110,43 +118,59 @@
 	};
 
 	$.fn.niceDate.defaults = {
-		
-		nowDate:	 	new Date(),
-		pattern: 		/([0-3][0-9]).([0|1][0-9]).(\d{4})\s(\d{2}):(\d{2})$/, // 15.08.2011 15:30
-		patternOrder: 	[3, 2, 1, 4, 5], // year, month, day, hour, minute
-		dayOnly:		true, // will show only days, no minutes or hours
-		hoverShow:		true, // will show original date on mouse over
+
+		nowDate : new Date(),
+		pattern : /([0-3][0-9]).([0|1][0-9]).(\d{4})\s(\d{2}):(\d{2})$/, // 15.08.2011 15:30
+		patternOrder : [3, 2, 1, 4, 5], // year, month, day, hour, minute
+		dayOnly : true, // will show only days, no minutes or hours
+		hoverShow : true, // will show original date on mouse over
+		monthMessages : ['January', 'February', 'March', 'April', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
 		dayMessages : {
-			n : {0 : 'Today', 1 : 'Yesterday', many : '%s days ago'},
-			p : {0 : 'Today', 1 : 'Tomorrow', many : '%s days later'}
+			n : {
+				0 : 'Today',
+				1 : 'Yesterday',
+				many : '%s days ago'
+			},
+			p : {
+				0 : 'Today',
+				1 : 'Tomorrow',
+				many : '%s days later'
+			}
 		},
 		hourMessages : {
-			n : {1 : '%s hour ago', many : '%s hours ago'},
-			p : {1 : 'After %s hour', many : '%s hours later'}
+			n : {
+				1 : '%s hour ago',
+				many : '%s hours ago'
+			},
+			p : {
+				1 : 'After %s hour',
+				many : '%s hours later'
+			}
 		},
 		minMessages : {
-			n : {1 : '% minute ago', many : '%s minutes ago'},
-			p : {1 : 'After %s minute',	many : '%s minutes later'}
+			n : {
+				1 : '% minute ago',
+				many : '%s minutes ago'
+			},
+			p : {
+				1 : 'After %s minute',
+				many : '%s minutes later'
+			}
 		}
-		
+
 	};
-	
-	$.fn.niceDate.defaults.makeTimestamp = function(text)
-	{
-		
+
+	$.fn.niceDate.defaults.makeTimestamp = function(text) {
+
 		var o = $.fn.niceDate.defaults;
 		var matches = text.match(o.pattern);
-		
+
 		if(matches) {
-			return new Date(matches[o.patternOrder[0]], 
-							matches[o.patternOrder[1]] - 1, 
-							matches[o.patternOrder[2]], 
-							matches[o.patternOrder[3]], 
-							matches[o.patternOrder[4]]);
+			return new Date(matches[o.patternOrder[0]], matches[o.patternOrder[1]] - 1, matches[o.patternOrder[2]], matches[o.patternOrder[3]], matches[o.patternOrder[4]]);
 		} else {
 			return false;
 		}
-		
-	}
 
+	};
+	
 })(jQuery);
