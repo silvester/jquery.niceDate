@@ -1,130 +1,154 @@
 /*!
- * jQuery niceDate plugin v0.1
+ * jQuery niceDate plugin v0.2
  * Author: Silvester Maraž
  * Url: http://maraz.org/2011/10/jquery-nicedate/
  * Licensed under the MIT license
  */
-;(function($) {
 
-	$.fn.niceDate = function(options) {
+;(function($, window) {
 
-		var options = $.extend({}, $.fn.niceDate.defaults, options);
+	var pluginName = 'niceDate';
 
-		var nowTs = options.nowDate.getTime() / 1000;
+	function Plugin(element, options) {
 
-		return this.each(function() {
+		this.element = $(element);
+		
+		this.options = $.extend({}, $.fn.niceDate.defaults, options);
+		
+		this._name = pluginName;
 
-			var o = options;
+		this.elementDefaultHtml = this.element.html();
+		
+		this.elementDateObject = this.options.makeTimestamp(this.elementDefaultHtml);
+		this.elementTimestamp = this.elementDateObject.getTime() / 1000;
+		
+		this.calculate();
+		
+		if(this.options.autoUpdate) {
+			var self = this;
+			setInterval(function(){ self.update(); }, this.options.autoUpdateInterval);
+		}
+				
+	}
+	
+	Plugin.prototype.update = function() {
+		this.options.nowDateObject = new Date();
+		this.calculate();
+	};
+	
+	Plugin.prototype.calculate = function() {
+		
+		var diff = this.elementTimestamp - (this.options.nowDateObject.getTime() / 1000);
 
-			var obj = $(this);
+		var dayDiff = diff / 86400;
+		var hourDiff = diff / 3600;
+		var minDiff = diff / 60;
+		
+		if (dayDiff >= 30 || dayDiff <= -30) {
 
-			var objDate = o.makeTimestamp(obj.html());
+			var objStr = formatMonth(this.elementDateObject, this.options);
 
-			var objHtml = obj.html();
+		} else if ((dayDiff >= 1 || dayDiff <= -1) || this.options.dayOnly) {
 
-			if(objDate) {
-				objTs = objDate.getTime() / 1000;
+			var objStr = formatDay(dayDiff, this.options);
 
-				var diff = objTs - nowTs;
+		} else if (hourDiff >= 1 || hourDiff <= -1) {
 
-				var dayDiff = diff / 86400;
-				var hourDiff = diff / 3600;
-				var minDiff = diff / 60;
+			var objStr = formatHour(hourDiff, this.options);
 
-				if(dayDiff >= 30 || dayDiff <= -30) {
+		} else {
 
-					var objStr = $.fn.niceDate.formatMonth(objDate);
+			var objStr = formatMinute(minDiff, this.options);
 
-				} else if((dayDiff >= 1 || dayDiff <= -1) || o.dayOnly) {
+		}
+		
+		this.element.html(objStr);
+		
+		var defaulthtmlstring = this.elementDefaultHtml;
+		
+		if (this.options.hoverShow) {
+			this.element.hover(function() {
+				$(this).html(defaulthtmlstring);
+			}, function() {
+				$(this).html(objStr);
+			});
+		}
+								
+		function formatMonth(objDate, o){
+			
+			return objDate.getDate() + '. ' + o.monthMessages[objDate.getMonth()] + ' ' + objDate.getFullYear();
+			
+		};
+		
+		function formatDay(d, o){
+			
+			var sign = (d >= 0) ? 'p' : 'n';
+			
+			var addition = 0;
 
-					var objStr = $.fn.niceDate.formatDay(dayDiff);
-
-				} else if(hourDiff >= 1 || hourDiff <= -1) {
-
-					var objStr = $.fn.niceDate.formatHour(hourDiff);
-
-				} else {
-
-					var objStr = $.fn.niceDate.formatMinut(minDiff);
-
-				}
-
-				obj.html(objStr);
-
-				if(o.hoverShow) {
-					obj.hover(function() {
-						$(this).html(objHtml)
-					}, function() {
-						$(this).html(objStr)
-					});
-				}
-
+			if (sign == 'p') {
+				var mins = ((d % 1) * 1440) + o.nowDateObject.getMinutes() + (o.nowDateObject.getHours() * 60);
+				if (mins > 1440) { addition = 1; }
+			} else {
+				var mins = (o.nowDateObject.getMinutes() + (o.nowDateObject.getHours() * 60)) + ((d % 1) * 1440);
+				if (mins < 0) {	addition = 1; }
 			}
+			
+			d = Math.floor(Math.abs(d)) + addition;
 
+			var str = (o.dayMessages[sign][d]) ? o.dayMessages[sign][d]	: o.dayMessages[sign]['many'];
+
+			return str.replace('%s', d);
+			
+		};
+		
+		function formatHour(d, o){
+			
+			var sign = (d >= 0) ? 'p' : 'n';
+			
+			d = Math.round(Math.abs(d));
+
+			var str = (o.hourMessages[sign][d]) ? o.hourMessages[sign][d] : o.hourMessages[sign]['many'];
+
+			return str.replace('%s', d);
+			
+		};
+		
+		function formatMinute(d, o){
+			
+			var sign = (d >= 0) ? 'p' : 'n';
+			
+			d = Math.round(Math.abs(d));
+
+			var str = (o.minMessages[sign][d]) ? o.minMessages[sign][d]	: o.minMessages[sign]['many'];
+
+			return str.replace('%s', d);
+			
+		};
+		
+		
+	};
+
+	$.fn[pluginName] = function(options) {
+		return this.each(function() {
+			if (!$.data(this, 'plugin_' + pluginName)) {
+				$.data(this, 'plugin_' + pluginName, new Plugin(this, options));
+			}
 		});
 	};
-
-	$.fn.niceDate.formatMonth = function(objTime) {
-
-		return objTime.getDate() + '. ' + $.fn.niceDate.defaults.monthMessages[objTime.getMonth()] + ' ' + objTime.getFullYear();
-
-	};
-
-	$.fn.niceDate.formatDay = function(d) {
-
-		var sign = (d >= 0) ? 'p' : 'n';
-		var o = $.fn.niceDate.defaults;
-		var addition = 0;
-
-		if(sign == 'p') {
-			var mins = ((d % 1) * 1440) + o.nowDate.getMinutes() + (o.nowDate.getHours() * 60);
-			if(mins > 1440) {
-				addition = 1;
-			}
-		} else {
-			var mins = (o.nowDate.getMinutes() + (o.nowDate.getHours() * 60)) + ((d % 1) * 1440);
-			if(mins < 0) {
-				addition = 1;
-			}
-		}
-		d = Math.floor(Math.abs(d)) + addition;
-
-		var str = (o.dayMessages[sign][d]) ? o.dayMessages[sign][d] : o.dayMessages[sign]['many'];
-
-		return str.replace('%s', d);
-
-	};
-
-	$.fn.niceDate.formatHour = function(d) {
-
-		var sign = (d >= 0) ? 'p' : 'n';
-		d = Math.round(Math.abs(d));
-
-		var str = ($.fn.niceDate.defaults.hourMessages[sign][d]) ? $.fn.niceDate.defaults.hourMessages[sign][d] : $.fn.niceDate.defaults.hourMessages[sign]['many'];
-
-		return str.replace('%s', d);
-
-	};
-
-	$.fn.niceDate.formatMinut = function(d) {
-
-		var sign = (d >= 0) ? 'p' : 'n';
-		d = Math.round(Math.abs(d));
-
-		var str = ($.fn.niceDate.defaults.minMessages[sign][d]) ? $.fn.niceDate.defaults.minMessages[sign][d] : $.fn.niceDate.defaults.minMessages[sign]['many'];
-
-		return str.replace('%s', d);
-
-	};
-
+	
 	$.fn.niceDate.defaults = {
 
-		nowDate : new Date(),
+		nowDateObject: new Date(),
 		pattern : /([0-3][0-9]).([0|1][0-9]).(\d{4})\s(\d{2}):(\d{2})$/, // 15.08.2011 15:30
-		patternOrder : [3, 2, 1, 4, 5], // year, month, day, hour, minute
-		dayOnly : true, // will show only days, no minutes or hours
+		patternOrder : [ 3, 2, 1, 4, 5 ], // year, month, day, hour, minute
+		dayOnly : false, // will show only days, no minutes or hours
 		hoverShow : true, // will show original date on mouse over
-		monthMessages : ['January', 'February', 'March', 'April', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+		autoUpdate : true,
+		autoUpdateInterval : 60000,
+		monthMessages : [ 'January', 'February', 'March', 'April', 'June',
+				'July', 'August', 'September', 'October', 'November',
+				'December' ],
 		dayMessages : {
 			n : {
 				0 : 'Today',
@@ -165,12 +189,14 @@
 		var o = $.fn.niceDate.defaults;
 		var matches = text.match(o.pattern);
 
-		if(matches) {
-			return new Date(matches[o.patternOrder[0]], matches[o.patternOrder[1]] - 1, matches[o.patternOrder[2]], matches[o.patternOrder[3]], matches[o.patternOrder[4]]);
+		if (matches) {
+			return new Date(matches[o.patternOrder[0]],
+					matches[o.patternOrder[1]] - 1, matches[o.patternOrder[2]],
+					matches[o.patternOrder[3]], matches[o.patternOrder[4]]);
 		} else {
 			return false;
 		}
 
 	};
-	
-})(jQuery);
+
+}(jQuery));
