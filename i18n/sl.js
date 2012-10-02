@@ -1,9 +1,10 @@
 /*!
-* jQuery niceDate plugin Sloven language translation v0.1
+* jQuery niceDate plugin Sloven language translation v0.2
 * Author: Silvester Maraž
 * Url: http://maraz.org/2011/10/jquery-nicedate/
 * Licensed under the MIT license
 */
+
 $.extend($.fn.niceDate.defaults, {
 
 	pattern : 		/([0-3][0-9]).([0|1][0-9]).(\d{4})\s(\d{2}):(\d{2})$/, // 15.08.2011 15:30
