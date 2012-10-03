@@ -7,7 +7,7 @@
 
 $.extend($.fn.niceDate.defaults, {
 
-	pattern : 		/([0-3][0-9]).([0|1][0-9]).(\d{4})\s(\d{2}):(\d{2})$/, // 15.08.2011 15:30
+	pattern : 		/([0-3]?[0-9]).([0|1]?[0-9]).(\d{4})\s?(\d{2})?:?(\d{2})?$/, // 15.08.2011 15:30
 	patternOrder :  [3, 2, 1, 4, 5], // year, month, day, hour, minute
 	monthMessages : ['Januar', 'Februar', 'Marec', 'April', 'Maj', 'Juni', 'Juli', 'Avgust', 'September', 'Oktober', 'November', 'December'],
 

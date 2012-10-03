@@ -24,7 +24,7 @@
 		
 		this.calculate();
 		
-		if(this.options.autoUpdate) {
+		if(this.options.autoUpdateInterval > 0) {
 			var self = this;
 			setInterval(function(){ self.update(); }, this.options.autoUpdateInterval);
 		}
@@ -140,15 +140,14 @@
 	$.fn.niceDate.defaults = {
 
 		nowDateObject: new Date(),
-		pattern : /([0-3][0-9]).([0|1][0-9]).(\d{4})\s(\d{2}):(\d{2})$/, // 15.08.2011 15:30
+		pattern : /([0-3]?[0-9]).([0|1]?[0-9]).(\d{4})\s?(\d{2})?:?(\d{2})?$/,
 		patternOrder : [ 3, 2, 1, 4, 5 ], // year, month, day, hour, minute
 		dayOnly : false, // will show only days, no minutes or hours
 		hoverShow : true, // will show original date on mouse over
-		autoUpdate : true,
-		autoUpdateInterval : 60000,
-		monthMessages : [ 'January', 'February', 'March', 'April', 'June',
+		autoUpdateInterval : 60000, // if 0 no update
+		monthMessages : ['January', 'February', 'March', 'April', 'May', 'June',
 				'July', 'August', 'September', 'October', 'November',
-				'December' ],
+				'December'],
 		dayMessages : {
 			n : {
 				0 : 'Today',
@@ -190,9 +189,9 @@
 		var matches = text.match(o.pattern);
 
 		if (matches) {
-			return new Date(matches[o.patternOrder[0]],
-					matches[o.patternOrder[1]] - 1, matches[o.patternOrder[2]],
-					matches[o.patternOrder[3]], matches[o.patternOrder[4]]);
+			var hours = (matches[o.patternOrder[3]] == undefined) ? 0 : matches[o.patternOrder[3]];
+			var minutes = (matches[o.patternOrder[4]] == undefined) ? 0 : matches[o.patternOrder[4]];
+			return new Date(matches[o.patternOrder[0]],	matches[o.patternOrder[1]] - 1, matches[o.patternOrder[2]],	hours, minutes);
 		} else {
 			return false;
 		}
