@@ -21,7 +21,7 @@ The config options:
 		<td>makeTimestamp</td><td>function</td><td>the function which takes text and return a JS Date object.</td>
 	</tr>
 	<tr>
-		<td>pattern</td><td>/([0-3][0-9]).([0|1][0-9]).(\d{4})\s(\d{2}):(\d{2})$/</td><td>How to parse the date</td>
+		<td>pattern</td><td>/([0-3]?[0-9]).([0|1]?[0-9]).(\d{4})\s?(\d{2})?:?(\d{2})?$/</td><td>How to parse the date</td>
 	</tr>
 	<tr>
 		<td>patternOrder</td><td>[ 3, 2, 1, 4, 5 ]</td><td>Date object parameters order</td>
@@ -33,10 +33,7 @@ The config options:
 		<td>hoverShow</td><td>true</td><td>If true on hover the original date will be shown</td>
 	</tr>
 	<tr>
-		<td>autoUpdate</td><td>true</td><td>If true setInterval will be added, text will be updates automatically</td>
-	</tr>
-	<tr>
-		<td>autoUpdateInterval</td><td>60000</td><td>Interval in milliseconds to update text</td>
+		<td>autoUpdateInterval</td><td>60000</td><td>Interval in milliseconds to update text. If 0 no update will be done.</td>
 	</tr>
 	<tr>
 		<td>monthMessages</td><td>...</td><td>See i18n</td>
@@ -50,20 +47,19 @@ The config options:
 	<tr>
 		<td>minMessages</td><td>...</td><td>See i18n</td>
 	</tr>
-
 </table>
 
 The standart usage would be:
 
 	$('.date').niceDate();
+	$('.date').niceDate({autoUpdateInterval: 0}); // no auto update
 	
 To manually update the text you can use the data object:
 
 	$('.date).each(function(){
 		$(this).data('plugin_niceDate').update();
 	});
-	
-If you have set the autoUpdate option true you wont need to update manually.
+
 
 i18n
 ----
