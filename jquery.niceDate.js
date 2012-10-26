@@ -5,7 +5,7 @@
  * Licensed under the MIT license
  */
 
-;(function($, window) {
+;(function($) {
 
 	var pluginName = 'niceDate';
 
