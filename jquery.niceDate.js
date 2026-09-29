@@ -19,19 +19,41 @@
 
 		this.elementDefaultHtml = this.element.html();
 		
+		if (!this.options.nowDateObject) {
+			this.options.nowDateObject = new Date();
+		}
+		
 		this.elementDateObject = this.options.makeTimestamp(this.elementDefaultHtml);
+		
+		// text could not be parsed, leave the element untouched
+		if (!this.elementDateObject || isNaN(this.elementDateObject.getTime())) {
+			return;
+		}
+		
 		this.elementTimestamp = this.elementDateObject.getTime() / 1000;
+		
+		var self = this;
+		
+		if (this.options.hoverShow) {
+			this.element.hover(function() {
+				self.hovering = true;
+				self.element.html(self.elementDefaultHtml);
+			}, function() {
+				self.hovering = false;
+				self.element.html(self.currentHtml);
+			});
+		}
 		
 		this.calculate();
 		
 		if(this.options.autoUpdateInterval > 0) {
-			var self = this;
 			setInterval(function(){ self.update(); }, this.options.autoUpdateInterval);
 		}
 				
 	}
 	
 	Plugin.prototype.update = function() {
+		if (this.elementTimestamp === undefined) { return; }
 		this.options.nowDateObject = new Date();
 		this.calculate();
 	};
@@ -62,16 +84,10 @@
 
 		}
 		
-		this.element.html(objStr);
+		this.currentHtml = objStr;
 		
-		var defaulthtmlstring = this.elementDefaultHtml;
-		
-		if (this.options.hoverShow) {
-			this.element.hover(function() {
-				$(this).html(defaulthtmlstring);
-			}, function() {
-				$(this).html(objStr);
-			});
+		if (!this.hovering) {
+			this.element.html(objStr);
 		}
 								
 		function formatMonth(objDate, o){
@@ -139,8 +155,8 @@
 	
 	$.fn.niceDate.defaults = {
 
-		nowDateObject: new Date(),
-		pattern : /([0-3]?[0-9]).([0|1]?[0-9]).(\d{4})\s?(\d{2})?:?(\d{2})?$/,
+		nowDateObject: null, // null means the current time
+		pattern : /([0-3]?[0-9])\.([01]?[0-9])\.(\d{4})\s?(\d{2})?:?(\d{2})?$/,
 		patternOrder : [ 3, 2, 1, 4, 5 ], // year, month, day, hour, minute
 		dayOnly : false, // will show only days, no minutes or hours
 		hoverShow : true, // will show original date on mouse over
@@ -172,7 +188,7 @@
 		},
 		minMessages : {
 			n : {
-				1 : '% minute ago',
+				1 : '%s minute ago',
 				many : '%s minutes ago'
 			},
 			p : {
@@ -198,4 +214,4 @@
 
 	};
 
-}(jQuery));
+}(jQuery));
