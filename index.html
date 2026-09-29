@@ -110,7 +110,7 @@
 		}
 		input[type=text]:focus, .seg button:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
 		.row { margin-bottom: 16px; }
-		.seg { display: inline-flex; border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
+		.seg { display: inline-flex; flex-wrap: wrap; border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
 		.seg button {
 			border: 0; background: var(--bg); color: var(--text); padding: 8px 16px;
 			font: inherit; font-size: 14px; cursor: pointer;
@@ -187,6 +187,10 @@
 					<div class="seg" id="langSeg">
 						<button type="button" data-lang="en" aria-pressed="true">English</button>
 						<button type="button" data-lang="sl" aria-pressed="false">Slovenščina</button>
+						<button type="button" data-lang="es" aria-pressed="false">Español</button>
+						<button type="button" data-lang="de" aria-pressed="false">Deutsch</button>
+						<button type="button" data-lang="ru" aria-pressed="false">Русский</button>
+						<button type="button" data-lang="tr" aria-pressed="false">Türkçe</button>
 					</div>
 				</div>
 				<div class="row">
@@ -251,9 +255,17 @@
 	var LANG = { en: $.extend(true, {}, $.fn.niceDate.defaults) };
 </script>
 <script src="i18n/sl.js"></script>
+<script>LANG.sl = $.extend(true, {}, $.fn.niceDate.defaults);</script>
+<script src="i18n/es.js"></script>
+<script>LANG.es = $.extend(true, {}, $.fn.niceDate.defaults);</script>
+<script src="i18n/de.js"></script>
+<script>LANG.de = $.extend(true, {}, $.fn.niceDate.defaults);</script>
+<script src="i18n/ru.js"></script>
+<script>LANG.ru = $.extend(true, {}, $.fn.niceDate.defaults);</script>
+<script src="i18n/tr.js"></script>
 <script>
-	LANG.sl = $.extend(true, {}, $.fn.niceDate.defaults);
-	// sl.js changes the global defaults, so go back to English and choose the language per element
+	LANG.tr = $.extend(true, {}, $.fn.niceDate.defaults);
+	// the language files change the global defaults, so go back to English and choose the language per element
 	$.extend($.fn.niceDate.defaults, LANG.en);
 
 	function pad(n) { return (n < 10 ? '0' : '') + n; }
@@ -349,7 +361,7 @@
 			var parts = [];
 			if (dayOnly) { parts.push('  dayOnly: true'); }
 			if (!hover) { parts.push('  hoverShow: false'); }
-			if (lang === 'sl') { parts.push('  // load i18n/sl.js for Slovenian'); }
+			if (lang !== 'en') { parts.push('  // load i18n/' + lang + '.js for ' + $('#langSeg [data-lang=' + lang + ']').text()); }
 			code += parts.length ? '{\n' + parts.join(',\n').replace(/,\n  \/\//, '\n  //') + '\n}' : '';
 			$('#pgCode').text(code + ');');
 		}
