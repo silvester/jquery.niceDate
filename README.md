@@ -2,8 +2,8 @@ jquery.niceDate plugin
 ======================
 
 It is a plugin to make dates more human readable. 12.12.2012 15:30 will become relative to 3 days ago. It supports i18n, 
-currently english and sloven languages are supported. In the i18n folder is the demo for sloven language, so you can use the same schema 
-to add another language.
+English is built in. Slovenian (sl), Spanish (es), German (de), Russian (ru) and Turkish (tr) are in the i18n folder, so you can use
+the same schema to add another language. Include the language file after the plugin, e.g. `<script src="i18n/de.js"></script>`.
 
 Usage
 -----
