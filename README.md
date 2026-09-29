@@ -15,13 +15,13 @@ The config options:
 		<th>Option</th><th>Default setting</th><th>Usage</th>
 	</tr>
 	<tr>
-		<td>nowDateObject</td><td>new Date()</td><td>The current date object</td>
+		<td>nowDateObject</td><td>null (current time)</td><td>The current date object</td>
 	</tr>
 	<tr>
 		<td>makeTimestamp</td><td>function</td><td>the function which takes text and return a JS Date object.</td>
 	</tr>
 	<tr>
-		<td>pattern</td><td>/([0-3]?[0-9]).([0|1]?[0-9]).(\d{4})\s?(\d{2})?:?(\d{2})?$/</td><td>How to parse the date</td>
+		<td>pattern</td><td>/([0-3]?[0-9])\.([01]?[0-9])\.(\d{4})\s?(\d{2})?:?(\d{2})?$/</td><td>How to parse the date</td>
 	</tr>
 	<tr>
 		<td>patternOrder</td><td>[ 3, 2, 1, 4, 5 ]</td><td>Date object parameters order</td>
@@ -71,4 +71,4 @@ Changelog
 *	**v0.2** Added auto update. Rewritten the whole plugin after jquery plugin boilerplate. Added manual update function.
 *	**v0.1** Freshly created
 
-Demo available on http://maraz.org/demo/jquery-niceDate/ or the index.html file.
+Demo available on http://maraz.org/demo/jquery-niceDate/ or the index.html file.
